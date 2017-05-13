@@ -36,6 +36,10 @@ parser = OptionParser.new do|opts|
 		options[:initial_value] = initial_value;
 	end
 
+	opts.on('-r', '--run run_number', 'Runs a few in a row') do |run_number|
+		options[:run_number] = run_number;
+	end
+
 	opts.on('-h', '--help', 'Displays Help') do
 		puts opts
 		exit
@@ -52,12 +56,18 @@ end
 puts "Welcome to FizzBuzz. Type ctrl-c to exit."
 current_value = options[:initial_value].to_i
 fzbz = FizzBuzz.new(current_value)
-puts "#{current_value}"
+puts "Starting with #{current_value}"
 
-trap("SIGINT") { throw :ctrl_c }
-catch :ctrl_c do
-	while true
-		run_next(fzbz)
+if options[:run_number]
+	puts "run #{options[:run_number]}"
+	run_number = options[:run_number].to_i
+	run_number.times { puts fzbz.next() }
+else
+	trap("SIGINT") { throw :ctrl_c }
+	catch :ctrl_c do
+		while true
+			run_next(fzbz)
+		end
 	end
 end
 
