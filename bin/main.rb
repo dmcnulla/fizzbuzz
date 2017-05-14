@@ -17,6 +17,7 @@ def run_next(buzzer)
 	output_message = "\nPress Enter to get next value\n...or type your own and press Enter if you feel lucky!"
  	next_input = get_input(output_message)
  	actual = "#{buzzer.next()}"
+ 	throw :quit_requested if next_input.downcase == 'quit'
  	if guess?(next_input)
  		if actual == next_input
  			puts "\nGood job!"
@@ -26,6 +27,11 @@ def run_next(buzzer)
  	else
  		puts "\nNext is: #{actual}"
  	end
+end
+
+def exit_now()
+	puts "\nGoodbye!"
+	exit(0)
 end
 
 options = {:name => nil, :age => nil}
@@ -63,8 +69,7 @@ if options[:run_number]
 	run_number = options[:run_number].to_i
 	run_number.times { puts fzbz.next() }
 else
-	trap("SIGINT") { throw :ctrl_c }
-	catch :ctrl_c do
+	catch :quit_requested do
 		while true
 			run_next(fzbz)
 		end

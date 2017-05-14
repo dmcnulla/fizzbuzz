@@ -1,15 +1,18 @@
 Feature: Run a few fizz buzzes in a row.
 
+@always
 Scenario: Introduction
 	When I run `main.rb -v 1 -r 1`
 	Then the output should contain "Welcome to FizzBuzz"
 	And  the output should contain "Type ctrl-c to exit."
 	And  the output should contain "run 1"
 
+@always
 Scenario: Exit
 	When I run `main.rb -v 1 -r 1`
 	Then the output should contain "Goodbye!"
 
+@sometimes
 Scenario Outline: Run with initial value & number of times
 	When I run `main.rb -v <start> -r <count>`
 	Then the output should contain "<output>"
