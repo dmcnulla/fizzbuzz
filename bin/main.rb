@@ -1,8 +1,8 @@
-#!/usr/bin/ruby
-# Years till 100
+#!/usr/bin/env ruby
+
 require 'optparse'
 
-require_relative 'lib/fizzbuzz.rb'
+require_relative '../lib/fizzbuzz.rb'
 
 def get_input(message)
 	puts message
